@@ -26,7 +26,9 @@ spec:
             - name: DBPWD
               value: "ABCabc12341**"
             - name: DBSVC
-              value: "racingdw_high"   		  
+              value: "racingdw_high"  
+            - name: ADBOCID
+              value: "ocid1.autonomousdatabase.oc1.iad.anuwcljs6p6lxhaawyxrsdbfiauufiisesborbrk4k6qucrb3tt4kuqkfkia"               
           ports:
             - containerPort: 5000
       imagePullSecrets:
