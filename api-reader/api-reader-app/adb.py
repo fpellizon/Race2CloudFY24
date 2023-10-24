@@ -36,7 +36,7 @@ def get_connection(signer, adb_ocid, db_client):
 
     wallet_password = get_dbwallet_from_autonomousdb(dbwallet_dir, db_client, adb_ocid, dbpwd)
 
-    print("***GET_WALLPASS***")
+   logging.getLogger().info("wallet retrieved.......")  
     
     # Update SQLNET.ORA
     with open(dbwallet_dir + '/sqlnet.ora') as orig_sqlnetora:
@@ -84,7 +84,7 @@ def retrieve_data():
             #adb_ocid = list_autonomous.data[0].id
             adb_ocid = "ocid1.autonomousdatabase.oc1.iad.anuwcljs6p6lxhaawyxrsdbfiauufiisesborbrk4k6qucrb3tt4kuqkfkia"
 
-        print("***PRE_GETCONN***")
+        logging.getLogger().info("pre connection.......")  
         
         dbconnection = get_connection(signer, adb_ocid, db_client)
 
