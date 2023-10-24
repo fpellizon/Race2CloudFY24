@@ -36,7 +36,7 @@ def get_connection(signer, adb_ocid, db_client):
 
     wallet_password = get_dbwallet_from_autonomousdb(dbwallet_dir, db_client, adb_ocid, dbpwd)
 
-   logging.getLogger().info("wallet retrieved.......")  
+   console.log("wallet-retr....");
     
     # Update SQLNET.ORA
     with open(dbwallet_dir + '/sqlnet.ora') as orig_sqlnetora:
@@ -44,6 +44,11 @@ def get_connection(signer, adb_ocid, db_client):
         'DIRECTORY=\"{}\"'.format(dbwallet_dir))
     with open(dbwallet_dir + '/sqlnet.ora', "w") as new_sqlnetora:
         new_sqlnetora.write(newText)
+        
+    with open(dbwallet_dir + '/tnsnames.ora') as orig_tnsnames:
+        origTnsText=orig_sqlnetora.read()
+
+    console.log(origTnsText);
 
     logging.getLogger().info("sqlnet.ora: "+ newText )
     # Create the DB Session Pool            
@@ -84,7 +89,7 @@ def retrieve_data():
             #adb_ocid = list_autonomous.data[0].id
             adb_ocid = "ocid1.autonomousdatabase.oc1.iad.anuwcljs6p6lxhaawyxrsdbfiauufiisesborbrk4k6qucrb3tt4kuqkfkia"
 
-        logging.getLogger().info("pre connection.......")  
+        console.log("pre-conn....");
         
         dbconnection = get_connection(signer, adb_ocid, db_client)
 
