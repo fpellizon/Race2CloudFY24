@@ -26,7 +26,7 @@ spec:
             - name: DBPWD
               value: "ABCabc12341**"
             - name: DBSVC
-              value: "racing_medium"   		  
+              value: "racingdw_medium"   		  
           ports:
             - containerPort: 5000
       imagePullSecrets:
