@@ -23,8 +23,7 @@ def get_dbwallet_from_autonomousdb(dbwallet_dir, db_client, adb_ocid, dbpwd):
     logging.getLogger().info("wallet generated.......")     
     return dbpwd   
 
-def get_connection(signer, adb_ocid, db_client):
-
+def get_connection(dbwallet_dir, db_client, adb_ocid):
     dbuser = os.getenv("DBUSER")
     #dbuser = "ADMIN"
     dbpwd = os.getenv("DBPWD")
@@ -32,23 +31,14 @@ def get_connection(signer, adb_ocid, db_client):
     dbsvc = os.getenv("DBSVC")
     #dbsvc = "racing_medium"
 
-    dbwallet_dir = "/tmp/dbwallet"
-
     wallet_password = get_dbwallet_from_autonomousdb(dbwallet_dir, db_client, adb_ocid, dbpwd)
 
-   console.log("wallet-retr....");
-    
     # Update SQLNET.ORA
     with open(dbwallet_dir + '/sqlnet.ora') as orig_sqlnetora:
         newText=orig_sqlnetora.read().replace('DIRECTORY=\"?/network/admin\"', 
         'DIRECTORY=\"{}\"'.format(dbwallet_dir))
     with open(dbwallet_dir + '/sqlnet.ora', "w") as new_sqlnetora:
         new_sqlnetora.write(newText)
-        
-    with open(dbwallet_dir + '/tnsnames.ora') as orig_tnsnames:
-        origTnsText=orig_sqlnetora.read()
-
-    console.log(origTnsText);
 
     logging.getLogger().info("sqlnet.ora: "+ newText )
     # Create the DB Session Pool            
@@ -59,7 +49,7 @@ def get_connection(signer, adb_ocid, db_client):
 
     logging.getLogger().info("Connection "+ dbsvc +" created ")
     return dbconnection
-
+    
 def retrieve_data():
     try:
         logging.getLogger().info('signer request')
