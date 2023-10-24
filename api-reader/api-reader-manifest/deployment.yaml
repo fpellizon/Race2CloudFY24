@@ -25,7 +25,7 @@ spec:
             - name: DBPWD
               value: "ABCabc12341**"
             - name: DBSVC
-              value: "racingdw_medium"
+              value: "racingdw_high"
           image: iad.ocir.io/idlhjo6dp3bd/api-reader:latest
           ports:
             - containerPort: 8080
