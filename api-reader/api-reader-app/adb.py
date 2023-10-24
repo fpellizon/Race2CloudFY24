@@ -7,11 +7,13 @@ import logging
 from zipfile import ZipFile
 import string
 
-
 def get_dbwallet_from_autonomousdb(dbwallet_dir, db_client, adb_ocid, dbpwd):
     dbwalletzip_location = "/tmp/dbwallet.zip"
+
+    #atp_wallet_pwd = ''.join(random.choices(string.ascii_uppercase + string.digits, k=15)) # random string
     # the wallet password is only used for creation of the Java jks files, which aren't used by cx_Oracle so the value is not important
     atp_wallet_details = oci.database.models.GenerateAutonomousDatabaseWalletDetails(password=dbpwd)
+    #print(atp_wallet_details, flush=True)
     obj = db_client.generate_autonomous_database_wallet(adb_ocid, atp_wallet_details)
     with open(dbwalletzip_location, 'w+b') as f:
         for chunk in obj.data.raw.stream(1024 * 1024, decode_content=False):
@@ -21,16 +23,13 @@ def get_dbwallet_from_autonomousdb(dbwallet_dir, db_client, adb_ocid, dbpwd):
     logging.getLogger().info("wallet generated.......")     
     return dbpwd   
 
-def get_connection(signer, adb_ocid, db_client):
-
+def get_connection(dbwallet_dir, db_client, adb_ocid):
     dbuser = os.getenv("DBUSER")
     #dbuser = "ADMIN"
     dbpwd = os.getenv("DBPWD")
     #dbpwd = "ABCabc12341**"
     dbsvc = os.getenv("DBSVC")
     #dbsvc = "racing_medium"
-
-    dbwallet_dir = "/tmp/dbwallet"
 
     wallet_password = get_dbwallet_from_autonomousdb(dbwallet_dir, db_client, adb_ocid, dbpwd)
 
@@ -50,6 +49,8 @@ def get_connection(signer, adb_ocid, db_client):
 
     logging.getLogger().info("Connection "+ dbsvc +" created ")
     return dbconnection
+
+
 
 def retrieve_data():
     try:
