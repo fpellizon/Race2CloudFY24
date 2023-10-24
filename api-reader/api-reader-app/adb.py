@@ -77,7 +77,8 @@ def retrieve_data():
         #Assumption: database created in the same compartment.
         if(adb_ocid==None) :
             list_autonomous = db_client.list_autonomous_databases(compartment_id=compartment_id, display_name='RACINGDW')
-            adb_ocid = list_autonomous.data[0].id
+            #adb_ocid = list_autonomous.data[0].id
+            adb_ocid = 'ocid1.autonomousdatabase.oc1.iad.anuwcljs6p6lxhaawyxrsdbfiauufiisesborbrk4k6qucrb3tt4kuqkfkia'
 
         dbconnection = get_connection(signer, adb_ocid, db_client)
 
