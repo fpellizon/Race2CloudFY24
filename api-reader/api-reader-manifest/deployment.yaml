@@ -26,6 +26,8 @@ spec:
               value: "ABCabc12341**"
             - name: DBSVC
               value: "racingdw_high"
+            - name: ADB_OCID
+              value: "ocid1.autonomousdatabase.oc1.iad.anuwcljs6p6lxhaawyxrsdbfiauufiisesborbrk4k6qucrb3tt4kuqkfkia"                   
           image: iad.ocir.io/idlhjo6dp3bd/api-reader:latest
           ports:
             - containerPort: 8080
