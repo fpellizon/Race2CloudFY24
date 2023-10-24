@@ -23,6 +23,8 @@ def get_dbwallet_from_autonomousdb(dbwallet_dir, db_client, adb_ocid, dbpwd):
     logging.getLogger().info("wallet generated.......")     
     return dbpwd   
 
+ 
+
 def get_connection(dbwallet_dir, db_client, adb_ocid):
     dbuser = os.getenv("DBUSER")
     #dbuser = "ADMIN"
@@ -81,7 +83,8 @@ def retrieve_data():
 
         console.log("pre-conn....");
         
-        dbconnection = get_connection(signer, adb_ocid, db_client)
+        #dbconnection = get_connection(signer, adb_ocid, db_client)
+        get_connection(dbwallet_dir, adb_ocid, db_client):
 
         table = os.getenv("TABLE")
         #table = "WKSP_RACING.TRANSCRIBE_AUDIO"
