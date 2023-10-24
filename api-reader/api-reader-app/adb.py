@@ -23,13 +23,16 @@ def get_dbwallet_from_autonomousdb(dbwallet_dir, db_client, adb_ocid, dbpwd):
     logging.getLogger().info("wallet generated.......")     
     return dbpwd   
 
-def get_connection(dbwallet_dir, db_client, adb_ocid):
+def get_connection(signer, adb_ocid, db_client):
+
     dbuser = os.getenv("DBUSER")
     #dbuser = "ADMIN"
     dbpwd = os.getenv("DBPWD")
     #dbpwd = "ABCabc12341**"
     dbsvc = os.getenv("DBSVC")
     #dbsvc = "racing_medium"
+
+    dbwallet_dir = "/tmp/dbwallet"
 
     wallet_password = get_dbwallet_from_autonomousdb(dbwallet_dir, db_client, adb_ocid, dbpwd)
 
@@ -49,8 +52,6 @@ def get_connection(dbwallet_dir, db_client, adb_ocid):
 
     logging.getLogger().info("Connection "+ dbsvc +" created ")
     return dbconnection
-
-
 
 def retrieve_data():
     try:
